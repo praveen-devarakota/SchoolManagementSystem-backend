@@ -1,6 +1,20 @@
 -- ===============================
--- SCHOOL DATABASE SCHEMA (TESTING)
+-- SCHOOL DATABASE SCHEMA
 -- ===============================
+
+-- ---------- SCHOOL PROFILE (MANDATORY) ----------
+CREATE TABLE IF NOT EXISTS school_profile (
+                                              id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                                              school_code VARCHAR(50) NOT NULL,
+    school_name VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+-- Insert initial metadata row
+INSERT INTO school_profile (school_code, school_name, status)
+SELECT 'INIT', 'INIT', 'ACTIVE'
+    WHERE NOT EXISTS (SELECT 1 FROM school_profile);
 
 -- ---------- CLASSES TABLE ----------
 CREATE TABLE IF NOT EXISTS classes (

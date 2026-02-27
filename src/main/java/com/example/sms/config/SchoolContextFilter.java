@@ -23,18 +23,18 @@ public class SchoolContextFilter extends OncePerRequestFilter {
             FilterChain filterChain)
             throws ServletException, IOException {
 
-        try {
-            String uri = request.getRequestURI();
-            // /api/schools/SCH003/classes
-            if (uri.startsWith("/api/schools/")) {
-                String[] parts = uri.split("/");
-                if (parts.length >= 4) {
-                    SchoolContextHolder.setSchoolCode(parts[3]);
-                }
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/api/schools/")) {
+            String[] parts = uri.split("/");
+            if (parts.length >= 4) {
+                SchoolContextHolder.setSchoolCode(parts[3]);
             }
-            filterChain.doFilter(request, response);
-        } finally {
-            SchoolContextHolder.clear();
         }
+
+        filterChain.doFilter(request, response);
+
+        // ✅ CLEAR AFTER TRANSACTION COMMIT
+        SchoolContextHolder.clear();
     }
 }

@@ -28,7 +28,7 @@ public class School {
     @Column(name = "school_name", nullable = false)
     private String schoolName;
 
-    @Column(name = "db_name", nullable = false)
+    @Column(name = "db_name", nullable = false, updatable = false)
     private String dbName;
 
     @Column(name = "db_username", nullable = false)

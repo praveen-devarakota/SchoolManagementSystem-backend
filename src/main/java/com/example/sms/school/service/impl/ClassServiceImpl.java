@@ -26,4 +26,10 @@ public class ClassServiceImpl implements ClassService {
 
         classRepository.save(schoolClass);
     }
+
+    @Override
+    @Transactional(transactionManager = "schoolTransactionManager")
+    public void deleteClass(Long id) {
+        classRepository.deleteById(id);
+    }
 }

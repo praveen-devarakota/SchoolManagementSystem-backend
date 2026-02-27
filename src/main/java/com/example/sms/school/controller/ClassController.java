@@ -2,6 +2,7 @@ package com.example.sms.school.controller;
 
 import com.example.sms.school.dto.ClassDto;
 import com.example.sms.school.service.ClassService;
+import com.example.sms.util.SchoolContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,29 @@ public class ClassController {
             @PathVariable String schoolCode,
             @RequestBody ClassDto dto) {
 
-        classService.addClass(dto);
+        // ✅ ENSURE CONTEXT
+        SchoolContextHolder.setSchoolCode(schoolCode);
+        try {
+            classService.addClass(dto);
+            return ResponseEntity.ok("Class added successfully");
+        } finally {
+            SchoolContextHolder.clear();
+        }
+    }
 
-        return ResponseEntity.ok("Class added successfully");
+    // ✅ DELETE ENDPOINT (THIS WAS MISSING)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteClass(
+            @PathVariable String schoolCode,
+            @PathVariable Long id) {
+
+        // ✅ ENSURE CONTEXT
+        SchoolContextHolder.setSchoolCode(schoolCode);
+        try {
+            classService.deleteClass(id);
+            return ResponseEntity.ok("Class deleted successfully");
+        } finally {
+            SchoolContextHolder.clear();
+        }
     }
 }
