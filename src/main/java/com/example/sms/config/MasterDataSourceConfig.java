@@ -20,13 +20,11 @@ public class MasterDataSourceConfig {
     @Bean
     @Primary
     public HikariDataSource masterDataSource() {
-
         HikariDataSource ds = new HikariDataSource();
         ds.setJdbcUrl("jdbc:mysql://localhost:3306/sms_master_db");
         ds.setUsername("root");
         ds.setPassword("minnu@443");
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-
         return ds;
     }
 
@@ -41,10 +39,7 @@ public class MasterDataSourceConfig {
         emf.setDataSource(dataSource);
         emf.setPackagesToScan("com.example.sms.master.entity");
         emf.setPersistenceUnitName("masterPU");
-
-        HibernateJpaVendorAdapter vendorAdapter =
-                new HibernateJpaVendorAdapter();
-        emf.setJpaVendorAdapter(vendorAdapter);
+        emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         return emf;
     }

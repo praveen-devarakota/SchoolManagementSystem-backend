@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class ClassServiceImpl implements ClassService {
 
     private final ClassRepository classRepository;
@@ -18,7 +17,9 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
+    @Transactional(transactionManager = "schoolTransactionManager")
     public void addClass(ClassDto dto) {
+
         SchoolClass schoolClass = new SchoolClass();
         schoolClass.setClassName(dto.getClassName());
         schoolClass.setSection(dto.getSection());

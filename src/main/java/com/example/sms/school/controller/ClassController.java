@@ -2,7 +2,6 @@ package com.example.sms.school.controller;
 
 import com.example.sms.school.dto.ClassDto;
 import com.example.sms.school.service.ClassService;
-import com.example.sms.util.SchoolContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +19,6 @@ public class ClassController {
     public ResponseEntity<String> addClass(
             @PathVariable String schoolCode,
             @RequestBody ClassDto dto) {
-
-        // ✅ SET CONTEXT FROM PATH
-        SchoolContextHolder.setSchoolCode(schoolCode);
 
         classService.addClass(dto);
 
